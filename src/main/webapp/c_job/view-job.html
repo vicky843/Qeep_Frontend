@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>View Applied Jobs</title>
+</head>
+<body>
+<div id="myDiv" style="background-image:url('images/2560x1440-peach-crayola-solid-color-background.jpg');background-repeat: no-repeat; background-size: cover;
+    background-position: center center;">
+<div class="container" ng-controller="JobController as ctrl">
+
+<div ng-repeat="jobapplied in ctrl.jobsapplied">
+<div class="form-group">
+
+Job ID:<label>{{jobapplied.jobID}}</label><br>
+UserName:<label>{{jobapplied.userID}}</label><br>
+Status:<label>{{jobapplied.status}}</label><br>
+Remarks:<label>{{jobapplied.remarks}}</label><br>
+
+
+
+<br>
+</div>
+
+</div>
+</div>
+</div>
+</body>
+</html>

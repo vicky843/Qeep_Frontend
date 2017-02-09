@@ -1,0 +1,44 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css"href="css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+<style>
+   body{
+background-image:  url("images/OilDcq.jpg");
+}
+
+   
+   </style> 
+</head>
+<body ng-controller="ChatController" class="container">
+<form ng-submit="addMessage()" name="messageForm">
+	<div class="form-group">
+	<div class="col-xs-6 col-sm-6 col-md-6">
+	<input type="text" class="form-control" placeholder="Compose a new message..." ng-model="message" />
+	<div class="info">
+	
+	<span class="count" ng-bind="max - message.length" ng-class="{danger:message.length>max}">140</span>
+	<button class="btn btn-primary" ng-disabled="message.length>max || message.length===0">send</button>
+	</div>
+	</div>
+	</div>
+	</form>
+	
+	  
+	<p ng-repeat ="message in messages | orderBy: 'time':true" class="message">
+	<time>{{message.time | date: 'HH:mm'}}</time>
+	<span ng-class ="{self.message.self}">{{message.message}}</span>
+	</p>
+	
+	
+	
+</body>
+
+	
+	
+</html>

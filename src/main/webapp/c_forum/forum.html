@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"href="css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"> 
+<style>
+body{
+
+background-image:  url("images/background-stripe-cream-v2.jpg");
+}.msg-val{
+  color : red;
+   };
+
+</style>   
+  </head>
+  <body >
+   <div ng-controller="ForumController as forumCtrl">
+       <div class="container">
+	<form name="forumForm" method="POST">
+	    <table>
+		<tr><td colspan="2">
+		  <div ng-if="forumCtrl.flag != 'edit'">
+		     
+		  </div>
+		  <div ng-if="forumCtrl.flag == 'edit'">
+		     <!-- <h3> Update Forum for ID: {{ blogCtrl.blog.c_id }} </h3>  -->
+		  </div> </td>
+		</tr>
+		
+		<div class="form-group">
+			<div class="col-xs-6 col-sm-6 col-md-6">
+				<label class="control-label" for="name">Title:</label> 
+		        <input type="text" class="form-control" name="forumTitle" placeholder="Title" ng-model="forumCtrl.forum.forumTitle" required/> 
+         	      <span ng-show="forumForm.forumTitle.$error.required" class="msg-val">Forum is required.</span> 
+			</div>
+		</div>
+		
+		<!-- <div class="form-group">
+		<div class="col-xs-6 col-sm-6 col-md-6">
+				<label class=" control-label" for="comment">User Id:</label> 
+		       <input type="text"  class="form-control" name="id" placeholder="User Id" ng-model="forumCtrl.blog.id" required/> 
+	            <span ng-show="forumForm.id.$error.required" class="msg-val">Id is required.</span> 
+		</div>
+		</div> -->
+		<div class="form-group">
+		<div class="col-xs-6 col-sm-6 col-md-6">
+			<label class="col-md-1 control-label" for="comment">Description:</label> 
+		  	<textarea type="textarea" class="form-control" placeholder="Description" maxlength="140" rows="5" name="forumDescription" ng-model="forumCtrl.forum.forumDescription" required/> 
+	        <span ng-show="forumForm.forumDescription.$error.required" class="msg-val">Description is required.</span> 
+		</div>
+		</div>
+		
+		
+		<div class="form-group">
+		<tr>
+		     <td colspan="2"> <span ng-if="forumCtrl.flag=='created'" class="msg-success">Forum successfully added.</span>
+		     <span ng-if="forumCtrl.flag=='failed'" class="msg-val">Forum already exists.</span> </td>
+		</tr>
+	        <tr><td colspan="2">
+	            <div ng-if="forumCtrl.flag != 'edit'">
+		       <input  type="submit" class="w3-btn w3-lime w3-round-xlarge" ng-click="forumCtrl.createForum()" value="Add Forum"/> 
+		        <input type="button" class="w3-btn w3-light-green w3-round-xlarge" ng-click="forumCtrl.reset()" value="Reset"/>
+		    </div>
+		    <div ng-if="forumCtrl.flag == 'edit'">
+		       <input  type="submit" class="w3-btn w3-red w3-round-xlarge" ng-click="forumCtrl.updateForumDetail()" value="Update Forum"/> 	
+			   <input type="button" class="w3-btn w3-lime w3-round-xlarge" ng-click="forumCtrl.cancelUpdate()" value="Cancel"/>				   
+		    </div> </td>
+		</tr>
+		<tr>
+		     <td colspan="2"> <span ng-if="forumCtrl.flag=='deleted'" class="msg-success">Forum successfully deleted.</span>
+		</tr>
+	    </table>        
+	</form>
+	<br>
+		
+            
+            <table class="w3-container w3-pale-red w3-hover-sand">
+            <tr><th width="120">Title</th> 
+	          <th width="250">Description</th> 
+	          <th width="200">Delete</th> 
+	          <th width="200">Edit</th> 
+	          <th width="200">View</th>
+	          
+	      </tr>
+            
+            
+           	      			
+	      <tr ng-repeat="row in forumCtrl.forums">
+	        <!--  <td><span ng-bind="row.c_id"></span></td> -->
+	         <td><span ng-bind="row.forumTitle"></span></td>
+	         <td><span ng-bind="row.forumDescription"></span></td>
+	         
+	         <td>
+		    <input type="button" class="w3-btn w3-indigo  w3-small" ng-click="forumCtrl.deleteForum(row.forumId)" value="Delete"/>
+		    </td>
+		    <td>
+		     <input type="button" class="w3-btn w3-teal w3-round-small" ng-click="forumCtrl.edit(row.forumId)" value="Edit"/>
+		    </td>
+		    <td>
+		    <input type="button" class="btn btn-info btn-lg" ng-click="forumCtrl.viewForum(row.forumId)" data-toggle="modal" data-target="#myModal" value="View"/>
+		  </td>
+		  
+		  
+		  	<span ng-if="forumCtrl.flag=='updated' && row.forumId==forumCtrl.updatedId" class="msg-success">Forum successfully updated.</span> 
+		  	
+		  	 
+		 </table>
+	 
+		     <div class="modal fade" id="myModal" role="dialog">
+   			 <div class="modal-dialog">
+          	<!-- Modal content-->
+      		<div class="modal-content">
+        	<div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Title: {{forumCtrl.viewforum.forumTitle}}</h4>
+           </div>
+         
+        <div class="modal-body">
+          <p>Description: {{forumCtrl.viewforum.forumDescription}}</p>
+         </div>
+        <div ng-controller="ForumCommentController as forumCommentCtrl">
+        <form role="form" name="forumCommentForm" method="POST">
+        <label>Add comment</label>
+        <input type="text" ng-model="forumCommentCtrl.forumComment.forumCommentContent" required/>
+        
+        <button type="button" ng-click="forumCommentCtrl.createForumComment()">Add Comment</button>
+        
+        
+        </form>
+       
+        <table class="table table-hover ">            
+	        <tr> <th >Forum Comment</th><th>Delete<th></tr>  
+	      <tr ng-repeat="row in forumCommentCtrl.forumComments">
+	         <td>{{row.forumCommentContent}}</td>
+	        <td> <button type="button" ng-click="forumCommentCtrl.deleteForumComment()">Delete</button></td>
+	       </tr>
+		</table>
+      </div>
+      <div ng-controller="ForumLikeController as forumLikeCtrl">
+      <form role="form" name="forumLikeForm" method="POST">
+      <button type="button" ng-click="forumLikeCtrl.createForumLike()">Like</button>
+      
+      </form>
+      {{forumLikeCtrl.forumLikes.length}} No of Likes
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+       </div>    
+    </div>
+  </div>
+  </div>
+	</div>  
+ </body>
+</html>  

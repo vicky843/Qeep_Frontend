@@ -1,0 +1,77 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"> 
+<title>Insert title here</title>
+</head>
+ <style>
+
+  #section0 {padding-top:0px;height:80px;color: #fff; background-color: #e68a00;}
+ #section1 {padding-top:40px;height:700px;color: #fff; background-color: #990000;}
+ /*  #section2 {padding-top:50px;height:600px;color: #fff; background-color: #990000;} */
+  #section3 {padding-top:60px;height:600px;color: #fff; background-color: #00004d;}
+  #section4 {padding-top:50px;height:600px;color: #fff; background-color: #ff9800;}
+  /* #section42 {padding-top:50px;height:500px;color: #fff; background-color: #990000;} */
+   
+  
+  
+  </style> 
+  
+
+<body>
+ 
+
+<div id="section0" class="container-fluid">
+ <div ng-controller="HomeController as ctrl">
+<div ng-hide="currentUser==''">
+<div class="container">
+<div class="row">
+<h3>
+<div class="col-sm-3" style="text-align: left;">
+Welcome: {{currentUser.username}}
+</div></h3>
+
+<div ng-controller="UserController as ctr">
+<div  style="text-align: right;">
+<input type="submit" class="w3-btn w3-white w3-border w3-border-red w3-round-xlarge"  ng-click="ctr.getSelectedUser()" value="My Profile"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+  </div> 
+  
+</div>
+<div id="section1" class="container-fluid"> 
+<h1>Blog</h1>
+<img src="images/banner cantinho do blog.png" alt="Flower">
+ 
+
+</br>
+    
+</div>  
+</div>
+
+
+<div id="section3" class="container-fluid">
+  <h1>Event</h1>
+  <img src="images/hands in the air header.png">
+</div>
+<div id="section4" class="container-fluid">
+<div class="col-sm-5">
+
+  <h1>Join millions of others</h1>
+   <p>Whether sharing your expertise, breaking news, or whatever is on your mind, you are in good company with our friends </p>
+</div>
+  <div class="col-sm-4">
+  <img src="images/Cpb1a7HVUAIEFRJ.png" alt="Flower">
+  </div>
+  
+</div>
+
+</body>
+</html>
